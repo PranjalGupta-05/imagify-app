@@ -10,7 +10,15 @@ const PORT = process.env.PORT || 4000
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://imagify-frontend-web-gdhfbpehdvf3deas.centralindia-01.azurewebsites.net'
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 await connectDB()
 
 app.use('/api/user', userRouter)
