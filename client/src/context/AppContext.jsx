@@ -11,7 +11,7 @@ const AppContextProvider = (props)=>{
     const [token, setToken] = useState(localStorage.getItem('token'))
     const [credit, setCredit] = useState(false)
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = "https://imagify-api-pranjal-c0gzaqckbxaqbyg2.centralindia-01.azurewebsites.net"
 
     const navigate = useNavigate()
 
