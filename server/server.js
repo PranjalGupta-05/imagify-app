@@ -10,19 +10,26 @@ const PORT = process.env.PORT || 4000
 const app = express()
 
 app.use(express.json())
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://imagify-frontend-web-gdhfbpehdvf3deas.centralindia-01.azurewebsites.net'
-];
 
+// The "Nuclear" CORS setting: Allows requests from ANY source
 app.use(cors({
-  origin: true, 
+  origin: true,
   credentials: true
 }));
-await connectDB()
 
+// API Routes
 app.use('/api/user', userRouter)
 app.use('/api/image', imageRouter)
-app.get('/', (req, res)=> res.send("API Working"))
+app.get('/', (req, res) => res.send("API Working"))
 
-app.listen(PORT, ()=> console.log('Server running on port ' + PORT));
+// Safer Startup Function
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => console.log('Server running on port ' + PORT));
+  } catch (error) {
+    console.error("Failed to start server:", error);
+  }
+}
+
+startServer();
